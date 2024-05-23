@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<munit:config name="unit-test-suite.xml">
+	<munit:parameterizations >
+			<munit:parameterization name="main-flow" >
+				<munit:parameters >
+					<munit:parameter propertyName="GAM_22773096280.host" value="https://media-gam-integration-sapi.us-e2.cloudhub.io" />
+					<munit:parameter propertyName="GAM_22773096280.port" value="443" />
+					<munit:parameter propertyName="GAM_22773096280.basepath" value="/api" />
+					<munit:parameter propertyName="GAM_22773096280.url.proposals" value="/api/proposal" />
+					<munit:parameter propertyName="GAM_22773096280.url.performProposalAction" value="/api/proposal/action" />
+					<munit:parameter propertyName="GAM_22773096280.url.proposalLineItems" value="/api/proposal/lineItems" />
+					<munit:parameter propertyName="GAM_22773096280.url.proposalStatus" value="/proposal/statusQuery" />
+				</munit:parameters>
+			</munit:parameterization>
+		</munit:parameterizations>
+	</munit:config>
+	<munit:test name="get-proposal-status-implementation-success" doc:id="8d5258d2-990b-4f33-9a1f-2b729834bdbe" >
+		<munit:enable-flow-sources >
+			<munit:enable-flow-source value="converged-media-process-main" />
+			<munit:enable-flow-source value="post:\getProposalStatus:application\json:converged-media-process-config" />
+		</munit:enable-flow-sources>
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="8c874b67-a539-489b-b408-d5289c45069b">
+				<munit:payload value="#[output application/json  --- readUrl('classpath://getProposalStatusTest/set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:attributes value="#[output application/json&#10;---&#10;{&#10;	'headers': {&#10;		'ext-gam-auth-header' : &quot;Bearer token&quot;&#10;	}&#10;}]" />
+				<munit:variables >
+					<munit:variable key="request" value="#[output application/json  --- readUrl('classpath://getProposalStatusTest/set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				</munit:variables>
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Request SAPI" doc:id="0efd99ee-eb87-41c6-833e-b78f6aa18d62" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Request Proposal" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="25046227-11c3-4965-8923-38c35065d419" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json  --- readUrl('classpath://getProposalStatusTest/getProposalStatus_sapi_response.dwl')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="get-proposal-status-implementation" doc:id="8ad1b3ff-319f-4f00-b4b4-60f8f4c69001" name="get-proposal-status-implementation"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="3ab48531-831c-4670-ab5b-1fb5341556ca" message="The payload does not match" >
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getProposalStatusTest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="get-proposal-status-implementation-empty-proposals" doc:id="4af663aa-57c2-4fb4-8ef1-f5af2f557c8d" expectedErrorType="REQUEST:BAD_REQUEST" expectedErrorDescription="Missing proposalIds. Cannot process request.">
+		<munit:enable-flow-sources >
+
+			<munit:enable-flow-source value="post:\getProposalStatus:application\json:converged-media-process-config" />
+			<munit:enable-flow-source value="converged-media-process-main" />
+		</munit:enable-flow-sources>
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="89959a2d-2092-4fb2-b58d-0279394af017" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://getProposalStatusTest/set-event_payload_empty_proposals.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:attributes value="#[output application/json&#10;---&#10;{&#10;	'headers': {&#10;		'ext-gam-auth-header' : &quot;Bearer token&quot;&#10;	}&#10;}]" />
+				<munit:variables >
+					<munit:variable key="request" value="#[output application/json  --- readUrl('classpath://getProposalStatusTest/set-event_payload_empty_proposals.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="get-proposal-status-implementation" doc:id="0e7401cb-056b-4289-81fe-c5c1ea047fd6" name="get-proposal-status-implementation" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="29274940-923d-4fd4-9f32-82512d3355a3" actual="#[error.errorType]" expected='#["REQUEST:BAD_REQUEST"]' message='#["Missing proposalIds. Cannot process request."]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="createProposalSubFlow-test" doc:id="eed5aa77-a30a-40f1-93bd-4acccfcdd71c">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request Proposal" doc:id="8adf4231-5a29-4470-80f1-d5d08494c442" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="60f67a71-26bd-4f1a-8505-681d0d87ccb0" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json  --- readUrl('classpath://createProposalSubFlowtest/mock_payload.dwl')]" mediaType="application/json " encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="request" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="path" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createProposalSubFlowtest/mock_variable_2.dwl')]" />
+						<munit-tools:variable key="method" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCodeInfo" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="response" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_5.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="originalPayload" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_6.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalResponse" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_7.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCode" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_8.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalRequest" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_9.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServercodes" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_10.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="token" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/mock_variable_11.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="5981c614-a82f-4b7a-b970-493acff41f3d" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://createProposalSubFlowtest/set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:variables >
+					<munit:variable key="request" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="path" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_1.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://createProposalSubFlowtest/set-event_variable_2.dwl')]" />
+					<munit:variable key="method" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_3.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="adServerCodeInfo" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_4.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="response" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_5.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="originalPayload" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_6.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="adServerCode" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_7.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="proposalRequest" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_8.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="adServercodes" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_9.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="token" value="#[output application/json --- readUrl('classpath://createProposalSubFlowtest/set-event_variable_10.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to createProposalSubFlow" doc:id="3a3360b1-0a5c-44e0-9014-3d47fc59d520" name="createProposalSubFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="8648ebe2-5376-4ed1-8ca7-1439a6e8b796" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import createProposalSubFlowtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="createProposalLineItemSubFlow-test" doc:id="007f9eb6-f668-4371-a8a1-7c7a3a1a5cab">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="f35f166b-4a40-4c58-b885-c8eae7619b2d" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e34cbd99-c500-42c4-8956-32382c0b406c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json  --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_payload.dwl')]" mediaType="application/json " encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="request" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="lineItemsbyAdServerCode" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalLineItemRequest" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_3.dwl')]" />
+						<munit-tools:variable key="method" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCodeInfo" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_5.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="shortSample" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_6.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="originalPayload" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_7.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCode" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_8.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="distinctLineItemAction" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_9.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServercodes" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_10.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalLineItemResponse" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_11.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="token" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_12.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalId" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_13.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="path" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_14.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="response" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_15.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalResponse" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_16.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalRequest" value="#[output application/json --- readUrl('classpath://createProposalLineItemSubFlowtest/mock_variable_17.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="7f2bddf7-205a-4c6a-8845-358cabf1e03e" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://createProposalLineItemSubFlowtest/set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to proposalLineItemSubFlow" doc:id="de42cb82-f9b1-4e4d-b055-ccc81fac3ac0" name="proposalLineItemSubFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="2ec799a1-e0b9-49c7-8123-8eba305a0e3b" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import createProposalLineItemSubFlowtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="implementationSub_Flow-test" doc:id="03b8c561-c62d-4b54-a73c-898513acb5a3">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock createProposalSubFlow" doc:id="4967ad6e-66ff-4645-99a4-9d8aa166711d" processor="flow-ref" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c6c77295-9f7f-49c0-a146-a2d71918b4fd" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json  --- readUrl('classpath://implementationSubFlowtest/mock_payload.dwl')]" mediaType="application/json " encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="request" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="path" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://implementationSubFlowtest/mock_variable_2.dwl')]" />
+						<munit-tools:variable key="method" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCodeInfo" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="response" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_5.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="originalPayload" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_6.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalResponse" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_7.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCode" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_8.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalRequest" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_9.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServercodes" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_10.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="token" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_11.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="7e830e2a-07f3-4735-b085-9f01f7558b68" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://implementationSubFlowtest/set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:attributes value="#[readUrl('classpath://implementationSubFlowtest/set-event_attributes.dwl')]" />
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Mock proposalLineItemRequestGenerationSubFlow" doc:id="8c3684c1-0a13-4b4f-b7ff-dc6775620c4c" processor="flow-ref" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="6f869bd0-e664-42f1-b6cc-4ec1f324637d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json  --- readUrl('classpath://implementationSubFlowtest/mock_payload.dwl')]" mediaType="application/json " encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="request" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_12.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="lineItemsbyAdServerCode" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_13.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalLineItemRequest" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_14.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://implementationSubFlowtest/mock_variable_15.dwl')]" />
+						<munit-tools:variable key="method" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_16.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCodeInfo" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_17.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="shortSample" value="#[readUrl('classpath://implementationSubFlowtest/mock_variable_18.dwl')]" />
+						<munit-tools:variable key="originalPayload" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_19.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServerCode" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_20.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="distinctLineItemAction" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_21.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="adServercodes" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_22.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalLineItemResponse" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_23.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="token" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_24.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalId" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_25.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="path" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_26.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="response" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_27.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalResponse" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_28.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="proposalRequest" value="#[output application/json --- readUrl('classpath://implementationSubFlowtest/mock_variable_29.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to implementationSub_Flow" doc:id="393ea208-522c-4531-a135-03a522629688" name="implementationSub_Flow" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="d88addff-c0a7-412e-adfb-4dc4cdc3080d" message="The payload does not match" >
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import implementationSubFlowtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="common-test-suite-publish-queue-publish-true" doc:id="afae3dd0-9df5-43dc-ba47-fc831c60b936" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Set variable forwardResponseFlag" doc:id="60833e95-79f5-4521-a063-9d49989948e0" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="forwardResponseFlag" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="forwardResponseflag" attributeName="variableName" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="forwardResponseFlag" value='#["true"]' mediaType="text/plain" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="mq:publish" doc:id="71cd33d5-617d-425b-b16f-c503fc02971c" processor="anypoint-mq:publish" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Anypoint_MQ_Config" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${forwardResponse.queue}" attributeName="destination" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to publish-queue-subflow" doc:id="2d2a050a-7591-4ee7-8606-760724f846f6" name="publish-queue-subflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="84e5742d-0280-40ed-a7e4-722d07155a91" processor="logger">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="After publish" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="common-test-suite-publish-queue-publish-false" doc:id="13c5e6bc-fccc-4921-a35e-be4bdfea7f53" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Set variable forwardResponseFlag" doc:id="bd5f0ce0-3ed5-404e-94c8-3cbbb7c5d3c6" processor="set-variable" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="forwardResponseFlag" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="forwardResponseflag" attributeName="variableName" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="forwardResponseFlag" value='#["false"]' mediaType="text/plain" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="mq:publish" doc:id="3905a972-8587-4077-9603-143512a904e4" processor="anypoint-mq:publish" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Anypoint_MQ_Config" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${forwardResponse.queue}" attributeName="destination" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to publish-queue-subflow" doc:id="8f0c75da-2beb-4a7a-bf22-00c72826450b" name="publish-queue-subflow" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="eec6b77f-c8f5-485d-bf7c-66988289b9fb" processor="logger" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="INFO" attributeName="level" />
+					<munit-tools:with-attribute whereValue="payload not published to queue" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+</mule>

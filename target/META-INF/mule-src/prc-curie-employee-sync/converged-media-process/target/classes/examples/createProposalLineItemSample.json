@@ -1,0 +1,146 @@
+[
+  {
+    "videoAttributes": [
+      {
+        "value": 20,
+        "key": "maxDuration"
+      },
+      {
+        "value": "Disabled",
+        "key": "skippable"
+      },
+      {
+        "value": "AtLeastOne",
+        "key": "displayCompanions"
+      }
+    ],
+    "deliveryRateType": "EVENLY",
+    "lineItemDetail": {
+      "adServerAction": "Create",
+      "adServerCode": "gam",
+      "targeting": {
+
+      },
+      "adSpaceSpecifications": [
+        {
+          "adServerAdUnitId": "3672569",
+          "creatives": [
+            {
+              "companions": [
+                {
+                  "adCreativeUOM": "Pixels",
+                  "width": 60,
+                  "height": 120
+                }
+              ],
+              "adCreativeUOM": "Pixels",
+              "width": 320,
+              "height": 50
+            },
+            {
+              "companions": [
+                {
+                  "adCreativeUOM": "Pixels",
+                  "width": 60,
+                  "height": 120
+                }
+              ],
+              "adCreativeUOM": "Pixels",
+              "width": 970,
+              "height": 90
+            }
+          ]
+        }
+      ],
+      "inventoryTypeCode": "Video",
+      "goals": [
+        {
+          "primary": true,
+          "goalUnitType": "IMPRESSIONS",
+          "goalUnits": 100,
+          "goalType": "LIFETIME"
+        },
+        {
+          "primary": false,
+          "goalUnitType": "IMPRESSIONS",
+          "goalUnits": 700,
+          "goalType": "LIFETIME"
+        }
+      ],
+      "pricingSpecs": {
+        "totalCost": {
+          "currencyCode": "USD",
+          "value": 50
+        },
+        "discountType": "Percentage",
+        "discount": 10,
+        "costType": "CPM",
+        "costPerUnit": {
+          "currencyCode": "USD",
+          "value": 50
+        }
+      },
+      "mediaChannelCode": "TN Sports Page",
+      "endDate": "2023-10-25 14:30:00",
+      "startDate": "2023-07-01 14:30:00",
+      "lineItemType": "Sponsorship",
+      "lineItemName": "00000204",
+      "id": "0"
+    },
+    "proposalId": "0"
+  },
+  {
+    "deliveryRateType": "EVENLY",
+    "lineItemDetail": {
+      "adServerAction": "Create",
+      "adServerCode": "gam",
+      "targeting": {
+
+      },
+      "adSpaceSpecifications": [
+        {
+          "adServerAdUnitId": "5639893",
+          "creatives": [
+            {
+              "companions": [
+
+              ],
+              "adCreativeUOM": "Pixels",
+              "width": 970,
+              "height": 90
+            }
+          ]
+        }
+      ],
+      "inventoryTypeCode": "Display",
+      "goals": [
+        {
+          "primary": true,
+          "goalUnitType": "IMPRESSIONS",
+          "goalUnits": 200,
+          "goalType": "LIFETIME"
+        }
+      ],
+      "pricingSpecs": {
+        "totalCost": {
+          "currencyCode": "USD",
+          "value": 34.65
+        },
+        "discountType": "Percentage",
+        "discount": 10,
+        "costType": "CPM",
+        "costPerUnit": {
+          "currencyCode": "USD",
+          "value": 34.65
+        }
+      },
+      "mediaChannelCode": "TN Home Page",
+      "endDate": "2023-10-25 14:30:00",
+      "startDate": "2023-07-01 14:30:00",
+      "lineItemType": "Standard",
+      "lineItemName": "00000200",
+      "id": "0"
+    },
+    "proposalId": "0"
+  }
+]

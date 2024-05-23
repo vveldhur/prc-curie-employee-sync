@@ -1,0 +1,37 @@
+{
+    "gam": {
+      "buyer": {
+        "id": "1014201253"
+      },
+      "salespeople": [
+        {
+          "id": "248110849",
+          "primary": true,
+          "isCompany": false
+        }
+      ],
+      "sellers": [
+        {
+          "id": "248110849",
+          "primary": false,
+          "isCompany": false
+        }
+      ],
+      "traffickers": [
+        {
+          "id": "248536492",
+          "primary": true,
+          "isCompany": false
+        }
+      ],
+      "advertiser": {
+        "id": "5248573372",
+        "type": "Advertiser"
+      },
+      "mediaType": "Digital",
+      "adServerInstanceId": "578347",
+      "adServerCode": "gam",
+      "adServerApplicationName": "GAM_Sandbox",
+      "proposalId": "0"
+    }
+  }

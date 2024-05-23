@@ -1,0 +1,15 @@
+{
+	"requestId": "RQST00001",
+	"requestedBy": "Bianca White",
+	"adServerInstanceId": "INS0491001",
+	"result": {
+		"status": "error",
+    "code": 405,
+		"adServerLogId": "54uy-213i-9489-3121",
+    "shortMessage": "Method Not Allowed",
+    "verboseMessage": "Method not allowed for this resource."
+	},
+	"minimalResults": [],
+	"detailResults": [],
+	"additionalFields": []
+}

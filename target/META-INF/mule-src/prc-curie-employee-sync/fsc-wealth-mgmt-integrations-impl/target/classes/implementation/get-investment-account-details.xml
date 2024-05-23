@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="retrieve-investment-account-details-sub-flow" doc:id="f9e45888-abdf-40b8-af67-2c5fa729db56" >
+		<set-variable value="#[readUrl('classpath://investmentAccountDetails.json', 'application/json')]" doc:name="investmentAccountDetails" doc:id="4dcb8f0b-fe7c-44e6-a540-6e47c346b87a" variableName="investmentAccountDetails" doc:description="Variable sets mock beneficiaries response" />
+		<ee:transform doc:name="DW Preparing Get Investment Account Details Response" doc:id="b3d6d80f-58e1-4416-8170-da5e266daf67">
+			<ee:message>
+				<ee:set-payload resource="dwl/p-getBeneficiariesResponse.dwl" />
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<flow name="get-investment-account-detailsFlow" doc:id="54a8cceb-adc8-4136-9880-fd10942ea17a" >
+		<ee:transform doc:name="Transform Message" doc:id="b30e99d1-9bd5-4339-9798-efd07145cd25" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+[{
+	Id: payload.id,
+	(Case_Topic__c: payload.topic) if (not isBlank(payload.topic)),
+	(Case_Category__c: payload.category) if (not isBlank(payload.category)),
+	(Origin: payload.origin) if (not isBlank(payload.origin)),
+	(Program__c: payload.program) if (not isBlank(payload.program)),
+	(Case_Reason__c: payload.reason) if (not isBlank(payload.reason)),
+	(RecordTypeId: payload.recordTypeId) if (not isBlank(payload.recordTypeId)),
+	(Type: payload."type") if (not isBlank(payload."type")),
+	(Status: payload.status) if (not isBlank(payload.status)),
+	(Subject: payload.subjectDescription) if (not isBlank(payload.subjectDescription)),
+	(Description: payload.Description) if (not isBlank(payload.Description)),
+	(Employee_Rehire_Eligibility__c: if ( payload.rehireEligibity == true ) "YES" else "NO") if (not isBlank(payload.rehireEligibity)),
+	(Employee_Regrettable_Status__c: if ( payload.regrettable == true ) "YES" else "NO") if (not isBlank(payload.regrettable)),
+	(Has_sign_on_bonus_in_last_12_months__c: if ( payload.isSignOnBonusPaidInTwelveMonths == true ) "YES" else "NO")  if (not isBlank(payload.isSignOnBonusPaidInTwelveMonths)),
+	(Has_Reloc_payment_given_in_last_12_mons__c: if ( payload.isRelocationBonusPaidInTwelveMonths == true ) "YES" else "NO") if (not isBlank(payload.isRelocationBonusPaidInTwelveMonths)),
+	(Is_Job_level_above_VP__c: if ( payload.isJobLevelVP == true ) "YES" else "NO") if (not isBlank(payload.isJobLevelVP))
+}]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

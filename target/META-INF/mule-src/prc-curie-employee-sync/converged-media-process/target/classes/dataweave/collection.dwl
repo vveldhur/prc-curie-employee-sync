@@ -1,0 +1,1 @@
+payload.proposals[0].proposalHeader.adServerHeadersbyAdServerCode pluck ((value, key, index) -> key)

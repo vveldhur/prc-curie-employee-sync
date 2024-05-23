@@ -1,0 +1,31 @@
+{
+  "requestId": "RQST00001",
+  "requestedBy": "Bianca White",
+  "adServerInstanceId": "INS0491001",
+   "result": {
+    "code": 200,
+    "status": "success"
+  },
+  "minimalResults" : ["101"],
+  "detailResults" : [],
+  "stepwiseResults" : [{
+    "systemApiEndPoint" : "/proposal",
+    "result" : {
+      "id" : "56736573",
+      "name" : "media plan 101",
+      "status" : "success",
+      "operatingOn" : "Proposal"
+    },
+    "adServer" : {
+      "adServerInstanceId" : "XG",
+      "adServerCode" : "xglinear",
+      "adServerApplicationName" : "NoName",
+      "mediaType" : "xglinear"},
+    "status" : "success"
+  }],
+  "additionalFields": 
+    {
+      "contractId": "additionField1"
+    }
+  
+}

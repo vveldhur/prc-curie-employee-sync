@@ -1,0 +1,12 @@
+In this api we have Manage beneficiaries endpoints which are used for managing beneficiaries for InvestmentAccount. From the source system we may get request to add/update/delete same set of beneficiaries against list of accounts, thats why the current implementation have below endpoints for them -
+
+1. /InvestmentAccounts/Initiate
+2. /InvestmentAccounts/Update
+3. /InvestmentAccounts/Delete
+
+While making lastmile connectivity with the end system, there might be a chance where end system can perform operations on single Investment account. So in this case developer will have to create new sapi to which this api will make call on below kind of endpoints by passing accountId which is received in the request payload to the sapi url as uri parameter along with the beneficiaries information in the request, like below-
+
+1. /InvestmentAccount/{accountId}/Initiate
+2. /InvestmentAccount/{accountId}/Update
+3. /InvestmentAccount/{accountId}/Delete
+

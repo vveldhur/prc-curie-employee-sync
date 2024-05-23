@@ -1,0 +1,65 @@
+#%RAML 1.0 Library
+usage: This library contains resource types.
+
+uses:
+  resourceSpecificType: ../modules/ResourceSpecificType.raml
+  commontype: ../modules/CommonTypeLibrary.raml
+
+types:
+  Perform_Proposal_Operation: resourceSpecificType.performProposalOperation
+  Perform_Proposal_Operation_Response: resourceSpecificType.performProposalOperationResponse
+  Get_Proposal_Status: resourceSpecificType.getProposalStatus
+  Get_Proposal_Status_Response: resourceSpecificType.getProposalStatusResponse
+
+resourceTypes:
+  post-putResourceType:
+    is: [commontype.errorTrait]
+    post:
+      description: Creates the <<entityName>> resource.
+      displayName: <<postDisplayName>>
+      body:
+        application/json:
+          description: Specifies the <<entityName>> to create.
+          type: <<postEntityType>>
+          example: <<postRequestExample>>
+      responses:
+        200:
+          description: Created the <<entityName>> resource.
+          body:
+            application/json:
+              type: <<postResponseDatatype>>
+              example: <<postResponseExample>>
+
+    put:
+      description: Updates the <<entityName>> resource.
+      displayName: <<putDisplayName>>
+      body:
+        application/json:
+          description: Specifies the <<entityName>> to update.
+          type: <<putEntityType>>
+          example: <<putRequestExample>>
+      responses:
+        200:
+          description: Updated the <<entityName>> resource.
+          body:
+            application/json:
+              type: <<putResponseDatatype>>
+              example: <<putResponseExample>>
+
+  postResourceType:
+    is: [commontype.errorTrait]
+    post:
+      description: Creates the <<entityName>> resource.
+      displayName: <<postDisplayName>>
+      body:
+        application/json:
+          description: Specifies the <<entityName>> to create.
+          type: <<postEntityType>>
+          example: <<postRequestExample>>
+      responses:
+        200:
+          description: Created the <<entityName>> resource.
+          body:
+            application/json:
+              type: <<postResponseDatatype>>
+              example: <<postResponseExample>>

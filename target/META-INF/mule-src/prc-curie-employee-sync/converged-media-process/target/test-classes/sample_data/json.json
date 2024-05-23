@@ -1,0 +1,575 @@
+{
+  "requestId": "0072740e-5b35-0123-01a0-3e3ff6d76a4a",
+  "requestedBy": "test user",
+  "adServerInstanceId": "578347",
+  "result": {
+    "code": 200,
+    "status": "success"
+  },
+  "minimalResults": [
+    "1135728"
+  ],
+  "detailResults": [
+    {
+      "id": "1135728",
+      "name": "Test Proposal",
+      "startDate": "2022-03-30",
+      "endDate": "2022-03-30",
+      "status": "DRAFT",
+      "proposalHeader": {
+        "isProgrammatic": false,
+        "publisher": {
+          "id": "43321",
+          "email": "publisher@gmail.com",
+          "name": "Mossaic",
+          "role": "Ads Publisher",
+          "type": "Salesperson",
+          "typeCode": "",
+          "isComapny": false,
+          "primary": false,
+          "officeCode": "US_SF_02",
+          "sharePercent": "",
+          "additionalFields": {
+            "additionField1": "additionField1",
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            }
+          }
+        },
+        "revenueSpecs": {
+          "revenueTypecode": "PRORATE",
+          "additionalFields": {
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            },
+            "additionField1": "additionField1"
+          }
+        },
+        "additionalFields": {
+          "additionField1": "additionField1",
+          "additionField2": {
+            "field1": "XXXXYY",
+            "field2": "XXXXYY"
+          }
+        },
+        "invoiceSpecs": {
+          "invoiceType": "PDF",
+          "invoiceTypeCode": "XLS",
+          "EDIProductCode": "",
+          "EDIOrder": "",
+          "EDIClientCode": "",
+          "additionalFields": {
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            },
+            "additionField1": "additionField1"
+          }
+        },
+        "otherPersonas": [
+          {
+            "id": "APIXXXXXX",
+            "email": "rd@yahoo.com",
+            "name": "Ritendra",
+            "role": "Salesperson",
+            "type": "Other",
+            "typeCode": "Example",
+            "isCompany": false,
+            "primary": false,
+            "officeCode": "IND01",
+            "sharePercent": "23",
+            "additionalFields": {
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              },
+              "additionField1": "additionField1"
+            }
+          }
+        ],
+        "notes": "",
+        "tags": [
+          "release-244",
+          "release-246"
+        ],
+        "purchaseOrderNumber": "",
+        "publisherOrderName": "01/2023 DEN",
+        "totalBudget": {
+          "value": 100,
+          "currencyCode": "USD",
+          "currencyName": "United States Dollar"
+        },
+        "salespeople": [
+          {
+            "id": "98878",
+            "email": "rd@gmail.com",
+            "name": "John",
+            "role": "Customer Success Manager",
+            "type": "Salesperson",
+            "typeCode": "",
+            "isComapny": false,
+            "primary": false,
+            "officeCode": "US_SF_01",
+            "sharePercent": "",
+            "additionalFields": {
+              "additionField1": "additionField1",
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              }
+            }
+          }
+        ],
+        "agencies": [
+          {
+            "id": "AGENCY100",
+            "email": "agency@gmail.com",
+            "name": "Sonyliv Agency",
+            "role": "Manager",
+            "type": "Agency",
+            "typeCode": "",
+            "isComapny": false,
+            "primary": false,
+            "officeCode": "US_SF_01",
+            "sharePercent": "",
+            "additionalFields": {
+              "additionField1": "additionField1",
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              }
+            }
+          }
+        ],
+        "orderStatus": "Approved",
+        "traffickers": [
+          {
+            "id": "32312",
+            "email": "james@gmail.com",
+            "name": "James",
+            "role": "Manager",
+            "type": "Trafficker",
+            "typeCode": "",
+            "isComapny": false,
+            "primary": false,
+            "officeCode": "US_SF_01",
+            "sharePercent": "",
+            "additionalFields": {
+              "additionField1": "additionField1",
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              }
+            }
+          }
+        ],
+        "billingSpecs": {
+          "billingCycleType": "Broadcast",
+          "billingCycleTypeCode": "QRTR",
+          "billingMode": "Fractional",
+          "additionalFields": {
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            },
+            "additionField1": "additionField1"
+          }
+        },
+        "orderType": "",
+        "deliveryDetails": {
+          "totalImpressionsDelivered": 20000,
+          "totalClicksDelivered": 200,
+          "totalViewableImpressionsDelivered": 200,
+          "additionalFields": {
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            },
+            "additionField1": "additionField1"
+          }
+        }
+      },
+      "advertiser": {
+        "primary": false,
+        "isCompany": false,
+        "officeCode": "IND01",
+        "name": "Ritendra",
+        "additionalFields": {
+          "additionField2": {
+            "field1": "XXXXYY",
+            "field2": "XXXXYY"
+          },
+          "additionField1": "additionField1"
+        },
+        "id": "APIXXXXXX",
+        "sharePercent": "23",
+        "email": "rd@yahoo.com",
+        "role": "Salesperson",
+        "typeCode": "Example",
+        "type": "Other"
+      },
+      "buyer": {
+        "primary": false,
+        "isCompany": false,
+        "officeCode": "IND01",
+        "name": "Ritendra",
+        "additionalFields": {
+          "additionField2": {
+            "field1": "XXXXYY",
+            "field2": "XXXXYY"
+          },
+          "additionField1": "additionField1"
+        },
+        "id": "APIXXXXXX",
+        "sharePercent": "23",
+        "email": "rd@yahoo.com",
+        "role": "Salesperson",
+        "typeCode": "Example",
+        "type": "Other"
+      },
+      "sellers": [
+        {
+          "id": "APIXXXXXX",
+          "email": "rd@yahoo.com",
+          "name": "Ritendra",
+          "role": "Salesperson",
+          "type": "Other",
+          "typeCode": "Example",
+          "isCompany": false,
+          "primary": false,
+          "officeCode": "IND01",
+          "sharePercent": "23",
+          "additionalFields": {
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            },
+            "additionField1": "additionField1"
+          }
+        }
+      ],
+      "lineItems": [
+        {
+          "proposalId": "1135728",
+          "lineItemDetail": {
+            "inventoryTypeCode": "DEFAULT",
+            "endDate": "2023-06-26",
+            "linearAttributes": {
+              "additionField1": "additionField1",
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              }
+            },
+            "lineItemName": "10 sec skippable ad",
+            "targeting": {
+              "dayPartTargeting": [
+                {
+                  "segmentValues": [
+                    {
+                      "value": 0.5,
+                      "label": "Hourly"
+                    }
+                  ],
+                  "segmentCode": "SlotType",
+                  "segmentName": "SlotType"
+                },
+                {
+                  "segmentValues": [
+                    {
+                      "value": "Monday 00:00",
+                      "label": "Monday 00:00"
+                    },
+                    {
+                      "value": "Wednesday 00:00",
+                      "label": "Wednesday 00:00"
+                    },
+                    {
+                      "value": "Wednesday 00:30",
+                      "label": "Wednesday 00:30"
+                    }
+                  ],
+                  "segmentCode": "DayAndTime",
+                  "segmentName": "DayAndTime"
+                }
+              ],
+              "geoTargeting": [
+                {
+                  "segmentValues": [
+                    {
+                      "value": "21132",
+                      "label": "Alaska"
+                    }
+                  ],
+                  "segmentCode": "Region",
+                  "segmentName": "Region"
+                }
+              ],
+              "others": [
+                {
+                  "categoryCode": "xgLineAudience",
+                  "categoryName": "xgLineAudience",
+                  "targetingSegmentDefinition": [
+                    {
+                      "segmentValues": [
+                        {
+                          "label": "RatingGoal ",
+                          "value": "1"
+                        },
+                        {
+                          "label": "SegmentCode ",
+                          "value": "test segment"
+                        }
+                      ],
+                      "segmentCode": "2222",
+                      "segmentName": "xgLineAudience"
+                    }
+                  ]
+                },
+                {
+                  "categoryCode": "Audience Segment",
+                  "categoryName": "Audience Segment",
+                  "targetingSegmentDefinition": [
+                    {
+                      "segmentValues": [
+                        {
+                          "label": "gender",
+                          "value": "female"
+                        }
+                      ],
+                      "segmentCode": "Female",
+                      "segmentName": "Gender Based"
+                    }
+                  ]
+                }
+              ]
+            },
+            "revenueSpecs": {
+              "revenueTypecode": "PRORATE",
+              "additionalFields": {
+                "additionField2": {
+                  "field1": "XXXXYY",
+                  "field2": "XXXXYY"
+                },
+                "additionField1": "additionField1"
+              }
+            },
+            "publisherOrderLineItemName": "",
+            "additionalFields": {
+              "additionField1": "additionField1",
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              }
+            },
+            "digitalAttributes": {
+              "additionField1": "additionField1",
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              }
+            },
+            "id": "283718",
+            "orderId": "1135728",
+            "mediaChannelCode": "SONY",
+            "adSpaceSpecifications": [
+              {
+                "adServerAdUnitId": "00:00-23:59",
+                "adServerAdUnitCode": "22214043670",
+                "creatives": [
+                  {
+                    "height": "970",
+                    "width": "70",
+                    "adServerCreativeId": "283718",
+                    "adServerCreativeRunTime": "400",
+                    "adServerCreativeType": "Bookend",
+                    "additionalFields": {
+                      "additionField1": "additionField1",
+                      "additionField2": {
+                        "field1": "XXXXYY",
+                        "field2": "XXXXYY"
+                      }
+                    }
+                  }
+                ],
+                "additionalFields": {
+                  "additionField1": "additionField1",
+                  "additionField2": {
+                    "field1": "XXXXYY",
+                    "field2": "XXXXYY"
+                  }
+                }
+              }
+            ],
+            "frequencyCaps": [
+              {
+                "maxImpressions": 1000,
+                "numTimeUnits": 5,
+                "timeUnit": "Hour",
+                "additionalFields": {
+                  "additionField1": "additionField1",
+                  "additionField2": {
+                    "field1": "XXXXYY",
+                    "field2": "XXXXYY"
+                  }
+                }
+              }
+            ],
+            "startDate": "2023-06-26",
+            "lineItemQuantity": {
+              "totalQuantity": 12,
+              "quanitityBreakdownByDay": {
+                "additionField1": "additionField1",
+                "additionField2": {
+                  "field1": "XXXXYY",
+                  "field2": "XXXXYY"
+                }
+              },
+              "totalQuantityPeriodType": "weekly",
+              "totalQuantityType": "impressions",
+              "additionalFields": {
+                "additionField1": "additionField1",
+                "additionField2": {
+                  "field1": "XXXXYY",
+                  "field2": "XXXXYY"
+                }
+              }
+            },
+            "goals": [
+              {
+                "goalType": "Daily",
+                "goalTypeCode": "Weekly",
+                "goalUnitType": "Click",
+                "goalUnitTypeCode": "Action",
+                "goalUnits": 2000,
+                "primary": false,
+                "additionalFields": {
+                  "additionField1": "additionField1",
+                  "additionField2": {
+                    "field1": "XXXXYY",
+                    "field2": "XXXXYY"
+                  }
+                }
+              }
+            ],
+            "pricingSpecs": {
+              "costPerUnit": {
+                "value": 100,
+                "currencyCode": "USD",
+                "currencyName": "United States Dollar"
+              },
+              "valueCostPerUnit": {
+                "value": 100,
+                "currencyCode": "USD",
+                "currencyName": "United States Dollar"
+              },
+              "costType": "CPM",
+              "discountType": "Percentage",
+              "discount": 15,
+              "mediaChannelRate": [
+                {
+                  "channelCode": "SONY",
+                  "regionCode": "NYC",
+                  "lineRate": {
+                    "value": 100,
+                    "currencyCode": "USD",
+                    "currencyName": "United States Dollar"
+                  }
+                }
+              ],
+              "totalCost": {
+                "value": 100,
+                "currencyCode": "USD",
+                "currencyName": "United States Dollar"
+              },
+              "additionalFields": {
+                "additionField1": "additionField1",
+                "additionField2": {
+                  "field1": "XXXXYY",
+                  "field2": "XXXXYY"
+                }
+              }
+            },
+            "lineItemType": "STANDARD",
+            "billingSpecs": {
+              "billingModeType": "Threshold",
+              "billingModeTypeCode": "Usage",
+              "additionalFields": {
+                "additionField1": "additionField1",
+                "additionField2": {
+                  "field1": "XXXXYY",
+                  "field2": "XXXXYY"
+                }
+              }
+            }
+          },
+          "lineItemPriority": 1,
+          "adTypeAttributes": {
+            "videoAttributes": {
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              },
+              "additionField1": "additionField1"
+            },
+            "audioAttributes": {
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              },
+              "additionField1": "additionField1"
+            },
+            "displayAttributes": {
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              },
+              "additionField1": "additionField1"
+            },
+            "otherAttributes": {
+              "additionField2": {
+                "field1": "XXXXYY",
+                "field2": "XXXXYY"
+              },
+              "additionField1": "additionField1"
+            }
+          },
+          "status": "DRAFT",
+          "attributes": {
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            },
+            "additionField1": "additionField1"
+          },
+          "additionalFields": {
+            "additionField2": {
+              "field1": "XXXXYY",
+              "field2": "XXXXYY"
+            },
+            "additionField1": "additionField1"
+          }
+        }
+      ],
+      "attributes": {
+        "additionField2": {
+          "field1": "XXXXYY",
+          "field2": "XXXXYY"
+        },
+        "additionField1": "additionField1"
+      },
+      "additionalFields": {
+        "additionField2": {
+          "field1": "XXXXYY",
+          "field2": "XXXXYY"
+        },
+        "additionField1": "additionField1"
+      }
+    }
+  ],
+  "additionalFields": {
+    "contractId": "additionField1"
+  }
+}
