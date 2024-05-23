@@ -1,4 +1,0 @@
-%dw 2.0
-output application/java
----
-attributes.headers.'ext-gam-auth-header'

@@ -1,4 +1,0 @@
-{
-  "minMuleVersion": "4.4.0",
-  "secureProperties": ["client_id", "client_secret","forwardResponse.clientId" ,"forwardResponse.clientSecret"]
-}

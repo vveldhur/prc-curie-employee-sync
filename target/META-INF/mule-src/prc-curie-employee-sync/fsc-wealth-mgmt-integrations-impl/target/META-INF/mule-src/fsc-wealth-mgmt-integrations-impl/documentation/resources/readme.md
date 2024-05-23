@@ -1,1 +1,0 @@
-This file is a placeholder as git does not allow empty folders. The developer needs to copy the images or videos if any under *resources* folder and push the code. Refer to this section: [Asset documentation](https://salesforce.quip.com/ePiBATfrth49#temp:C:cfLc5d8271880394e31bccd369e1)

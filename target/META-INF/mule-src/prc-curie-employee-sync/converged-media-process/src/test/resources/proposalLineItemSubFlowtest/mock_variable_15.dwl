@@ -1,1 +1,0 @@
-"https://media-gam-integration-sapi.us-e2.cloudhub.io/api/proposal/lines"
